@@ -22,6 +22,7 @@ export function calculateSaju(input: SajuRequest): SajuChart {
     fiveElements: result.fiveElements,
     dominantElements: result.dominantElements,
     weakElements: result.weakElements,
+    yongsin: result.yongsin ? { primaryKo: result.yongsin.primaryKo, secondaryKo: result.yongsin.secondaryKo } : undefined,
     timeAccuracy: result.timeAccuracy,
     limitations: [...result.limitations, ENGINE_LIMITATION],
   };

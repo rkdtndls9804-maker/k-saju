@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
+import { saveReading } from "@/lib/supabase/readings";
 import { buildGeminiReading } from "@/lib/reading/gemini";
 import { buildLocalReading } from "@/lib/reading/local";
 import { calculateSaju } from "@/lib/saju/engine";
@@ -13,6 +14,8 @@ export async function POST(request: Request) {
     const targetYear = parsed.data.targetYear ?? new Date().getFullYear();
     const input = { ...parsed.data, targetYear };
     const chart = calculateSaju(input);
+    const saving = saveReading(chart, { gender: input.gender, fortuneType: input.topic });
+    after(() => saving);
     let reading = buildLocalReading(chart, input);
     try { reading = (await buildGeminiReading(chart, input)) ?? reading; } catch { /* The deterministic chart remains available. */ }
     return NextResponse.json({ chart, reading, targetYear });

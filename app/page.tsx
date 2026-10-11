@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ElementKey, SajuRequest, SajuResponse } from "@/lib/saju/schema";
 
@@ -7,8 +8,8 @@ const colors: Record<ElementKey, string> = { wood: "#73c69b", fire: "#ff766d", e
 const labels: Record<ElementKey, string> = { wood: "Wood", fire: "Fire", earth: "Earth", metal: "Metal", water: "Water" };
 type Locale = "ko" | "en";
 const copy = {
-  en: { eyebrow:"Korean astrology · Four pillars", hero1:"You know your zodiac.", hero2:"Meet your Korean one.", heroBody:"Your birthday holds four pillars and eight characters. Discover the element at the center of your story.", discover:"Discover my core element", chart:"Your birth chart", question:"When did your story begin?", date:"Birth date · Solar calendar", time:"Birth time", unknown:"I don't know my birth time", place:"Birthplace (optional in beta)", placeHolder:"Seoul, South Korea", gender:"Gender used by the chart system", female:"Female", male:"Male", explore:"What do you want to explore?", personality:"Personality", love:"Love", career:"Career", year:"Year ahead", privacy:"Your details are used for this reading and are not saved.", read:"Read my chart", loading:"Finding your Four Pillars…", loadingSub:"Reading your eight characters" },
-  ko: { eyebrow:"한국 사주 · 사주팔자", hero1:"별자리는 알고 있죠.", hero2:"이제 나의 사주를 만나보세요.", heroBody:"생년월일에는 네 개의 기둥과 여덟 글자가 담겨 있어요. 나를 이루는 중심 기운을 발견해 보세요.", discover:"나의 중심 기운 알아보기", chart:"나의 사주", question:"당신의 이야기는 언제 시작됐나요?", date:"생년월일 · 양력", time:"태어난 시간", unknown:"태어난 시간을 몰라요", place:"출생지 (베타에서는 선택 사항)", placeHolder:"서울, 대한민국", gender:"사주 계산에 사용할 성별", female:"여성", male:"남성", explore:"무엇이 궁금한가요?", personality:"성격", love:"연애", career:"직업", year:"올해의 흐름", privacy:"입력한 정보는 이번 해석에만 사용되며 저장되지 않습니다.", read:"내 사주 보기", loading:"사주 네 기둥을 찾고 있어요…", loadingSub:"여덟 글자를 읽는 중" },
+  en: { eyebrow:"Korean astrology · Four pillars", hero1:"You know your zodiac.", hero2:"Meet your Korean one.", heroBody:"Your birthday holds four pillars and eight characters. Discover the element at the center of your story.", discover:"Discover my core element", chart:"Your birth chart", question:"When did your story begin?", date:"Birth date · Solar calendar", time:"Birth time", unknown:"I don't know my birth time", place:"Birthplace (optional in beta)", placeHolder:"Seoul, South Korea", gender:"Gender used by the chart system", female:"Female", male:"Male", explore:"What do you want to explore?", personality:"Personality", love:"Love", career:"Career", year:"Year ahead", privacy:"Your birth details are not saved. Calculated chart results, gender and topic are recorded for statistics.", read:"Read my chart", loading:"Finding your Four Pillars…", loadingSub:"Reading your eight characters" },
+  ko: { eyebrow:"한국 사주 · 사주팔자", hero1:"별자리는 알고 있죠.", hero2:"이제 나의 사주를 만나보세요.", heroBody:"생년월일에는 네 개의 기둥과 여덟 글자가 담겨 있어요. 나를 이루는 중심 기운을 발견해 보세요.", discover:"나의 중심 기운 알아보기", chart:"나의 사주", question:"당신의 이야기는 언제 시작됐나요?", date:"생년월일 · 양력", time:"태어난 시간", unknown:"태어난 시간을 몰라요", place:"출생지 (베타에서는 선택 사항)", placeHolder:"서울, 대한민국", gender:"사주 계산에 사용할 성별", female:"여성", male:"남성", explore:"무엇이 궁금한가요?", personality:"성격", love:"연애", career:"직업", year:"올해의 흐름", privacy:"생년월일시·출생지 원문은 저장하지 않습니다. 계산된 사주 결과와 성별·관심 주제는 통계에 기록합니다.", read:"내 사주 보기", loading:"사주 네 기둥을 찾고 있어요…", loadingSub:"여덟 글자를 읽는 중" },
 } as const;
 
 export default function Home() {
@@ -65,7 +66,7 @@ export default function Home() {
   }
 
   return <main className="shell">
-    <nav className="nav" aria-label="Primary"><span>K—Fortune</span><div className="nav-tools"><div className="language-switch" aria-label="Language"><button className={locale === "ko" ? "active" : ""} onClick={()=>changeLocale("ko")} aria-pressed={locale === "ko"}>한국어</button><span>/</span><button className={locale === "en" ? "active" : ""} onClick={()=>changeLocale("en")} aria-pressed={locale === "en"}>EN</button></div><span className="brand-mark" aria-hidden="true">{[1,2,3,4].map((x) => <i key={x} style={{ "--i": x } as React.CSSProperties} />)}</span></div></nav>
+    <nav className="nav" aria-label="Primary"><span>K—Fortune</span><div className="nav-tools"><Link href="/stats">{locale === "ko" ? "통계" : "Statistics"}</Link><div className="language-switch" aria-label="Language"><button className={locale === "ko" ? "active" : ""} onClick={()=>changeLocale("ko")} aria-pressed={locale === "ko"}>한국어</button><span>/</span><button className={locale === "en" ? "active" : ""} onClick={()=>changeLocale("en")} aria-pressed={locale === "en"}>EN</button></div><span className="brand-mark" aria-hidden="true">{[1,2,3,4].map((x) => <i key={x} style={{ "--i": x } as React.CSSProperties} />)}</span></div></nav>
     <section className="hero">
       <span className="eyebrow">{t.eyebrow}</span>
       <h1 className="serif">{t.hero1}<br/><em>{t.hero2}</em></h1>

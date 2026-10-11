@@ -45,6 +45,7 @@ export type SajuChart = {
   fiveElements: Record<ElementKey, number>;
   dominantElements: ElementKey[];
   weakElements: ElementKey[];
+  yongsin?: { primaryKo: string; secondaryKo?: string };
   timeAccuracy: "known" | "unknown";
   limitations: string[];
 };
